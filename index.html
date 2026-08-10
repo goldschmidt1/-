@@ -397,29 +397,6 @@
         </form>
     </div>
 
-    <!-- מדור תמונות וניהול -->
-    <div id="photos-section" class="content-section">
-        <span class="close-btn" onclick="toggleSection('photos-section')">&times;</span>
-        <h3 class="section-title">הוספה וצפייה בתמונות משפחתיות</h3>
-        <p style="color: var(--text-gray); font-size: 1rem; margin-bottom: 20px;">
-            בחר תמונה מהמכשיר שלך כדי שתופיע במסגרת הזהב בחזית האתר:
-        </p>
-        
-        <div style="background: linear-gradient(145deg, #0a0f1d, #172033); color: #ffffff; padding: 25px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); max-width: 100%; border: 1px solid rgba(212,175,55,0.4); box-sizing: border-box; margin-bottom: 30px;">
-            <input type="text" id="site-photo-title" placeholder="כותרת לתמונה (לדוגמה: טיול משפחתי)" style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #d4af37; background: #0f172a; color: #fff; box-sizing: border-box; font-family: inherit;">
-            
-            <!-- שדה בחירת קובץ מהמכשיר -->
-            <input type="file" id="site-photo-file" accept="image/*" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #d4af37; background: #0f172a; color: #fff; box-sizing: border-box; font-family: inherit;">
-            
-            <button onclick="publishPhotoToSite()" style="width: 100%; background: #d4af37; color: #0f172a; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; font-family: inherit; transition: background 0.3s;">העלה תמונה למסגרת האתר</button>
-        </div>
-
-        <h4 style="color: var(--gold); margin-bottom: 15px;">ניהול תמונות קיימות:</h4>
-        <div id="admin-photos-list" style="background: rgba(10, 15, 29, 0.8); padding: 15px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.2); max-height: 250px; overflow-y: auto;">
-            <p style="color: #94a3b8; font-style: italic; font-size: 14px; text-align: center; margin: 0;">אין תמונות להצגה כרגע.</p>
-        </div>
-    </div>
-
     <!-- נתוני קופות וסיכומים -->
     <div id="dashboard-container" style="background: linear-gradient(145deg, #0a0f1d, #172033); color: #ffffff; padding: 35px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 25px rgba(212,175,55,0.2); font-family: inherit; max-width: 440px; margin: 30px auto; border: 1.5px solid #d4af37; transition: all 0.3s ease-in-out;">
         <h2 style="color: #f3e5ab; margin-top: 0; font-size: 24px; font-weight: 700; border-bottom: 2px solid rgba(212,175,55,0.3); padding-bottom: 12px; text-align: center; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">נתוני קופות וסיכומים</h2>
@@ -453,7 +430,7 @@
 
     <!-- סקריפטים מרכזיים -->
     <script>
-        const webAppUrl = "https://script.google.com/macros/s/AKfycbztZMAh1DTLH1aLUkLavoQzO_ZXTl1mLNexGnY4WmoGr_fakV7jwQ2tmeQuiWVis0xz/exec";
+        const webAppUrl = "https://script.google.com/macros/s/AKfycbwhz4ez2_U2Snuf-viPvmrz8iwBfkheOj95G9UW7uLGSZ1Lx_88rpE-FbLWeFVVBd_S/exec";
         let globalEvents = [];
         let currentTickerIndex = 0;
         let tickerInterval = null;
@@ -508,11 +485,6 @@
                     updateTickerDisplay();
                     startTickerRotation();
                     renderAdminManageList();
-                    
-                    // תמונות אם קיימות
-                    if (data.photos) {
-                        renderPhotosList(data.photos);
-                    }
                 })
                 .catch(error => {
                     console.error("שגיאה בסנכרון הנתונים:", error);
@@ -674,111 +646,37 @@
                 }, 5000);
             }
         }
-
-        // העלאת תמונה למערכת
-        function publishPhotoToSite() {
-            const title = document.getElementById('site-photo-title').value;
-            const fileInput = document.getElementById('site-photo-file');
-            const password = prompt("הזן את קוד הגישה המשפחתי:");
-
-            if (!title || fileInput.files.length === 0 || !password) {
-                alert("נא למלא כותרת, לבחור קובץ תמונה ולהזין קוד גישה");
-                return;
-            }
-
-            const file = fileInput.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                const base64Image = e.target.result;
-
-                alert("מנסה לשלוח תמונה...");
-                fetch(webAppUrl, {
-                    method: "POST",
-                    headers: { "Content-Type": "text/plain" },
-                    body: JSON.stringify({
-                        type: "photo",
-                        action: "add",
-                        title: title,
-                        url: base64Image,
-                        password: password
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("התמונה הועלתה בהצלחה!");
-                        document.getElementById('site-photo-title').value = "";
-                        fileInput.value = "";
-                        renderPhotosList(data.photos);
-                    } else {
-                        alert("שגיאה: " + (data.message || "קוד גישה שגוי"));
-                    }
-                })
-                .catch(err => {
-                    console.error("שגיאה בהעלאת התמונה:", err);
-                    alert("אירעה שגיאה בתקשורת מול השרת.");
-                });
-            };
-
-            reader.readAsDataURL(file);
-        }
-
-        // מחיקת תמונה מהמערכת
-        function deletePhoto(index) {
-            const password = prompt("הזן קוד גישה לאישור מחיקה:");
-            if (!password) return;
-            
-            fetch(webAppUrl, {
-                method: "POST",
-                headers: { "Content-Type": "text/plain" },
-                body: JSON.stringify({
-                    type: "photo",
-                    action: "delete",
-                    index: index,
-                    password: password
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("התמונה נמחקה בהצלחה");
-                    renderPhotosList(data.photos);
-                } else {
-                    alert("שגיאה: " + (data.message || "קוד גישה שגוי"));
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                alert("שגיאה בתקשורת מול השרת");
-            });
-        }
-
-        // הצגת רשימת התמונות בניהול
-        function renderPhotosList(photos) {
-            const listContainer = document.getElementById('admin-photos-list');
-            if (!listContainer) return;
-
-            if (!photos || photos.length === 0) {
-                listContainer.innerHTML = '<p style="color: #94a3b8; font-style: italic; font-size: 14px; text-align: center; margin: 0;">אין תמונות פעילות כרגע.</p>';
-                return;
-            }
-
-            let html = '';
-            photos.forEach((photo, idx) => {
-                html += `
-                    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 10px 14px; border-radius: 8px; margin-bottom: 8px; border: 1px solid rgba(212,175,55,0.1);">
-                        <div>
-                            <strong style="color: #f3e5ab; font-size: 15px;">${escapeHtml(photo.title)}</strong>
-                        </div>
-                        <button onclick="deletePhoto(${idx})" style="background: rgba(248,113,113,0.15); border: 1px solid #f87171; color: #f87171; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 13px; transition: background 0.3s;" onmouseover="this.style.background='rgba(248,113,113,0.3)'" onmouseout="this.style.background='rgba(248,113,113,0.15)'">
-                            <i class="fa-solid fa-trash-can" style="margin-left: 4px;"></i> הסר
-                        </button>
-                    </div>
-                `;
-            });
-            listContainer.innerHTML = html;
-        }
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- מדור תמונות וניהול -->
+<div id="photos-section" class="content-section">
+    <span class="close-btn" onclick="toggleSection('photos-section')">&times;</span>
+    <h3 class="section-title">הוספה וצפייה בתמונות משפחתיות</h3>
+    <p style="color: var(--text-gray); font-size: 1rem; margin-bottom: 20px;">
+        הוסף קישור לתמונה חדשה כדי שתופיע במסגרת הזהב בחזית האתר:
+    </p>
+    
+    <div style="background: linear-gradient(145deg, #0a0f1d, #172033); color: #ffffff; padding: 25px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); max-width: 100%; border: 1px solid rgba(212,175,55,0.4); box-sizing: border-box; margin-bottom: 30px;">
+        <input type="text" id="site-photo-title" placeholder="כותרת לתמונה (לדוגמה: טיול משפחתי)" style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #d4af37; background: #0f172a; color: #fff; box-sizing: border-box; font-family: inherit;">
+        <input type="text" id="site-photo-url" placeholder="כתובת הקישור של התמונה (URL)" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #d4af37; background: #0f172a; color: #fff; box-sizing: border-box; font-family: inherit;">
+        <button onclick="publishPhotoToSite()" style="width: 100%; background: #d4af37; color: #0f172a; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; font-family: inherit; transition: background 0.3s;">הוסף תמונה למסגרת האתר</button>
+    </div>
+
+    <h4 style="color: var(--gold); margin-bottom: 15px;">ניהול תמונות קיימות:</h4>
+    <div id="admin-photos-list" style="background: rgba(10, 15, 29, 0.8); padding: 15px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.2); max-height: 250px; overflow-y: auto;">
+        <!-- רשימת ניהול התמונות תטען אוטומטית -->
+    </div>
+</div>
