@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>קופה משפחתית ועדכונים שוטפים</title>
+    <!-- ייבוא אייקונים -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- ייבוא פונט עברי נקי -->
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #0b131f;
+            --bg-card: #131d2d;
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
+            --text-light: #ffffff;
+            --text-gray: #a0aec0;
+        }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            direction: rtl;
+        }
+
+        /* תפריט עליון */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: var(--bg-dark);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-area i {
+            font-size: 2rem;
+            color: var(--gold);
+        }
+
+        .logo-text h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .logo-text p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        /* אזור ראשי (Hero) */
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 80px 50px;
+            background: linear-gradient(135deg, #0b131f 0%, #172438 100%);
+            gap: 40px;
+        }
+
+        .hero-content {
+            max-width: 50%;
+        }
+
+        .hero-content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content h2 span {
+            color: var(--gold);
+        }
+
+        .cta-btn {
+            background: linear-gradient(45deg, #c5a028, #f3e5ab);
+            color: #0b131f;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .cta-btn:hover {
+            opacity: 0.9;
+        }
+
+        .hero-image {
+            max-width: 45%;
+            text-align: center;
+            width: 100%;
+        }
+
+        .realistic-photo-frame {
+            position: relative;
+            width: 100%;
+            height: 360px;
+            background: linear-gradient(rgba(11, 19, 31, 0.3), rgba(11, 19, 31, 0.65)), 
+                        url('https://images.unsplash.com/photo-1542224566-6e85f2e6772f?q=80&w=1000&auto=format&fit=crop') center/cover no-repeat;
+            border-radius: 16px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .realistic-box {
+            position: relative;
+            width: 170px;
+            height: 140px;
+            background: linear-gradient(135deg, #2b3a4a 0%, #172438 50%, #0b131f 100%);
+            border-radius: 12px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8), inset 0 2px 5px rgba(255,255,255,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .box-label-text {
+            background: linear-gradient(45deg, #c5a028, #f3e5ab);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-top: 15px;
+            text-align: center;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+            letter-spacing: 0.5px;
+        }
+
+        .frame-footer-label {
+            position: absolute;
+            bottom: 15px;
+            background-color: rgba(11, 19, 31, 0.85);
+            padding: 6px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--gold-light);
+            z-index: 2;
+            backdrop-filter: blur(5px);
+        }
+
+        /* אזורים נפתחים */
+        .content-section {
+            display: none;
+            position: relative;
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: var(--bg-card);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--text-light);
+            box-sizing: border-box;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 1.8rem;
+            color: var(--gold);
+            cursor: pointer;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #ffffff;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--gold);
+            display: inline-block;
+            padding-bottom: 5px;
+            color: var(--text-light);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            background-color: #0b131f;
+            color: var(--text-light);
+            font-size: 1rem;
+            font-family: 'Heebo', sans-serif;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 20px;
+            }
+            .hero-content {
+                max-width: 100%;
+            }
+            .hero-content h2 {
+                font-size: 2.5rem;
+            }
+            .hero-image {
+                margin-top: 30px;
+                max-width: 100%;
+            }
+            nav {
+                padding: 15px 20px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .nav-links {
+                width: 100%;
+                justify-content: space-between;
+                gap: 10px;
+            }
+            #main-events-display {
+                width: calc(100% - 40px) !important;
+                left: 20px !important;
+                right: 20px !important;
+                bottom: 15px !important;
+            }
+            #dashboard-container {
+                max-width: 100% !important;
+                margin: 20px !important;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- תפריט עליון -->
+    <nav>
+        <div class="logo-area">
+            <i class="fa-solid fa-tree"></i>
+            <div class="logo-text">
+                <h1>משפחת גולדשמידט</h1>
+                <p>קופה משפחתית ועדכונים שוטפים</p>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a onclick="toggleSection('home')">בית</a></li>
+            <li><a onclick="toggleSection('about-section')">מי אנחנו</a></li>
+            <li><a onclick="toggleSection('expertise-section')">מטרות האתר</a></li>
+            <li><a onclick="toggleSection('events-admin-section')">הוספת הודעות ושמחות</a></li>
+            <li><a onclick="toggleSection('contact-section')">צור קשר</a></li>
+        </ul>
+        <button class="nav-btn" onclick="toggleSection('contact-section')">לשליחת דואר לאתר</button>
+    </nav>
+
+    <!-- אזור ראשי -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>שותפים לחיים <span>שותפים לעזרה.</span> נשארים מאוחדים.</h2>
+            <button class="cta-btn" onclick="toggleSection('contact-section')">לעדכון חדש</button>
+        </div>
+        <div class="hero-image">
+            <div class="realistic-photo-frame">
+                <div class="realistic-box">
+                    <i class="fa-solid fa-hand-holding-dollar" style="font-size: 2.2rem; color: var(--gold); margin-top: 5px;"></i>
+                    <div class="box-label-text">קופת המשפחה</div>
+                </div>
+                <div class="frame-footer-label">איחוד המשפחה נשמר באהבה</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 1. אזור "מי אנחנו" -->
+    <div id="about-section" class="content-section">
+        <span class="close-btn" onclick="toggleSection('about-section')">&times;</span>
+        <h3 class="section-title">מי אנחנו</h3>
+        <p style="color: var(--text-gray); font-size: 1.1rem; line-height: 1.8;">
+            משפחת גולדשמידט המורחבת, קופת משפחה, עדכוני מכירות והנחות, שליחת תמונות, פרסום אירועים והודעות לכלל המשפחה.
+        </p>
+    </div>
+
+    <!-- 2. אזור "מטרות האתר" -->
+    <div id="expertise-section" class="content-section">
+        <span class="close-btn" onclick="toggleSection('expertise-section')">&times;</span>
+        <h3 class="section-title">מטרות האתר</h3>
+        <p style="color: var(--text-gray); font-size: 1.1rem; line-height: 1.8;">
+            מטרת האתר להקל על כל המשפחה לעקוב אחרי הקורה בקופה, להודיע ולפרסם שמחות ועדכונים וכמובן לשתף פרסומים ותמונות.
+        </p>
+    </div>
+
+    <!-- 3. אזור "הוספת הודעות ושמחות" וניהול מחיקות -->
+    <div id="events-admin-section" class="content-section">
+        <span class="close-btn" onclick="toggleSection('events-admin-section')">&times;</span>
+        <h3 class="section-title">הוספה וניהול מבזקי שמחות</h3>
+        <p style="color: var(--text-gray); font-size: 1rem; margin-bottom: 20px;">
+            מלא את פרטי השמחה או ההודעה כדי לפרסם אותה לחזית האתר:
+        </p>
+        
+        <div id="events-admin-panel" style="background: linear-gradient(145deg, #0a0f1d, #172033); color: #ffffff; padding: 25px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); max-width: 100%; border: 1px solid rgba(212,175,55,0.4); box-sizing: border-box; margin-bottom: 30px;">
+            <input type="text" id="site-event-title" placeholder="שם האירוע / השמחה" style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #d4af37; background: #0f172a; color: #fff; box-sizing: border-box; font-family: inherit;">
+            <textarea id="site-event-desc" placeholder="פרטים נוספים / תאריך" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #d4af37; background: #0f172a; color: #fff; box-sizing: border-box; font-family: inherit; height: 80px; resize: none;"></textarea>
+            <button onclick="publishEventToSite()" style="width: 100%; background: #d4af37; color: #0f172a; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; font-family: inherit; transition: background 0.3s;" onmouseover="this.style.background='#f3e5ab'" onmouseout="this.style.background='#d4af37'">פרסם שמחה לחזית האתר</button>
+        </div>
+
+        <h4 style="color: var(--gold); margin-bottom: 15px;">ניהול מבזקים קיימים (מוסתר מהגולשים הרגילים):</h4>
+        <div id="admin-manage-list" style="background: rgba(10, 15, 29, 0.8); padding: 15px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.2); max-height: 250px; overflow-y: auto;">
+            <!-- רשימת הניהול תטען אוטומטית סקריפט -->
+        </div>
+    </div>
+
+    <!-- 4. אזור "צור קשר" -->
+    <div id="contact-section" class="content-section">
+        <span class="close-btn" onclick="toggleSection('contact-section')">&times;</span>
+        <h3 class="section-title">צור קשר ושליחת פנייה</h3>
+        <p style="color: var(--text-gray); font-size: 1rem;">
+            מלא את הפרטים ונטפל בזה בהקדם:
+        </p>
+        <form class="contact-form" action="https://formspree.io/f/xoeaepyl" method="POST">
+            <input type="text" name="שם_מלא" placeholder="שם מלא" required>
+            <input type="tel" name="טלפון" placeholder="מספר טלפון" required>
+            <input type="email" name="אימייל" placeholder="כתובת אימייל" required>
+            <textarea name="תוכן_הפנייה" rows="4" placeholder="כתוב כאן את פרטי הפנייה" required></textarea>
+            <input type="hidden" name="_subject" value="פנייה חדשה מאתר קופת המשפחה">
+            <button type="submit" class="cta-btn" style="width: 100%;">שליחת פנייה למשרד</button>
+        </form>
+    </div>
+
+    <!-- נתוני קופות וסיכומים -->
+    <div id="dashboard-container" style="background: linear-gradient(145deg, #0a0f1d, #172033); color: #ffffff; padding: 35px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 25px rgba(212,175,55,0.2); font-family: inherit; max-width: 440px; margin: 30px auto; border: 1.5px solid #d4af37; transition: all 0.3s ease-in-out;">
+        <h2 style="color: #f3e5ab; margin-top: 0; font-size: 24px; font-weight: 700; border-bottom: 2px solid rgba(212,175,55,0.3); padding-bottom: 12px; text-align: center; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">נתוני קופות וסיכומים</h2>
+        <div style="font-size: 17px; line-height: 2.4; margin-top: 15px;">
+            <div style="margin: 15px 0; padding: 12px 15px; background: rgba(212,175,55,0.08); border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: #f3e5ab; font-weight: 600; font-size: 18px;">סך הכל מאזן:</span> 
+                <strong id="total-balance-el" style="color: #f3e5ab; font-size: 26px; font-weight: 800; text-shadow: 0 0 12px rgba(243,229,171,0.4);">טוען...</strong>
+            </div>
+            <p style="margin: 12px 5px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 8px;">
+                <span style="color: #cbd5e1;">מאזן כללי:</span> 
+                <strong id="general-balance-el" style="color: #93c5fd; font-size: 19px;">טוען...</strong>
+            </p>
+            <p style="margin: 12px 5px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: #cbd5e1;">מאזן חתונות:</span> 
+                <strong id="weddings-balance-el" style="color: #bfdbfe; font-size: 19px;">טוען...</strong>
+            </p>
+        </div>
+    </div>
+
+    <!-- מדור הודעות ושמחות מעוצב כמבזקים צפים (נקי לחלוטין מכפתורי מחיקה) -->
+    <div id="main-events-display" style="position: fixed; bottom: 25px; left: 25px; background: linear-gradient(145deg, #0a0f1d, #172033); color: #ffffff; padding: 22px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.7), 0 0 25px rgba(212,175,55,0.25); font-family: inherit; width: 340px; z-index: 9999; border: 1.5px solid #d4af37; backdrop-filter: blur(8px);">
+        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid rgba(212,175,55,0.3); padding-bottom: 10px; margin-bottom: 12px;">
+            <h2 style="color: #f3e5ab; margin: 0; font-size: 18px; font-weight: 700; letter-spacing: 0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);"><i class="fa-solid fa-bullhorn" style="margin-left: 8px; color: var(--gold);"></i> מבזקי שמחות ועדכונים</h2>
+            <span style="background: rgba(212,175,55,0.2); color: var(--gold-light); font-size: 11px; padding: 2px 8px; border-radius: 10px; border: 1px solid rgba(212,175,55,0.4);">מתחלף אוטומטית</span>
+        </div>
+        
+        <div id="live-events-container" style="min-height: 90px; display: flex; align-items: center; justify-content: center;">
+            <p style="color: #94a3b8; text-align: center; font-style: italic; font-size: 14px; margin: 0;">אין שמחות להצגה כרגע. הוסף שמחה חדשה!</p>
+        </div>
+    </div>
+
+    <!-- סקריפטים מרכזיים -->
+    <script>
+        // ניהול תצוגת הסקשנים
+        function toggleSection(sectionId) {
+            if (sectionId === 'home') {
+                document.querySelectorAll('.content-section').forEach(sec => sec.style.display = 'none');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+
+            var section = document.getElementById(sectionId);
+            if (section) {
+                if (section.style.display === "none" || section.style.display === "") {
+                    document.querySelectorAll('.content-section').forEach(sec => sec.style.display = 'none');
+                    section.style.display = "block";
+                    section.scrollIntoView({ behavior: 'smooth' });
+                    if (sectionId === 'events-admin-section') {
+                        renderAdminManageList();
+                    }
+                } else {
+                    section.style.display = "none";
+                }
+            }
+        }
+
+        // טעינת נתונים מהשרת
+        const webAppUrl = "https://script.google.com/macros/s/AKfycbylofNoUvOJQs6RV3GMKNdwcQZf1KEaBapO7GikFgCaJgo15fXmZzxcaMFVNYCTFPP73g/exec";
+
+        fetch(webAppUrl)
+            .then(response => response.json())
+            .then(data => {
+                console.log("הנתונים התקבלו בהצלחה:", data);
+                document.getElementById('total-balance-el').innerText = '₪' + Number(data.totalBalance).toLocaleString();
+                document.getElementById('general-balance-el').innerText = '₪' + Number(data.generalBalance).toLocaleString();
+                document.getElementById('weddings-balance-el').innerText = '₪' + Number(data.weddingsBalance).toLocaleString();
+            })
+            .catch(error => {
+                console.error("שגיאה בסנכרון הנתונים:", error);
+                document.getElementById('total-balance-el').innerText = 'שגיאה בטעינה';
+                document.getElementById('general-balance-el').innerText = 'שגיאה';
+                document.getElementById('weddings-balance-el').innerText = 'שגיאה';
+            });
+
+        // ניהול מבזקים ואירועים
+        let currentTickerIndex = 0;
+        let tickerInterval = null;
+
+        function getStoredEvents() {
+            try {
+                return JSON.parse(localStorage.getItem('familyTickerEvents') || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            updateTickerDisplay();
+            startTickerRotation();
+        });
+
+        function publishEventToSite() {
+            const titleInput = document.getElementById('site-event-title');
+            const descInput = document.getElementById('site-event-desc');
+            const title = titleInput.value.trim();
+            const desc = descInput.value.trim();
+
+            if (!title || !desc) {
+                alert("נא למלא את כל השדות לפני הפרסום");
+                return;
+            }
+
+            let events = getStoredEvents();
+            events.unshift({ title, desc });
+            localStorage.setItem('familyTickerEvents', JSON.stringify(events));
+
+            currentTickerIndex = 0;
+            updateTickerDisplay();
+            startTickerRotation();
+
+            titleInput.value = '';
+            descInput.value = '';
+            
+            alert("השמחה פורסמה בהצלחה לחזית האתר כמבזק!");
+            toggleSection('home');
+        }
+
+        function deleteTickerEvent(index) {
+            let events = getStoredEvents();
+            if (index > -1 && index < events.length) {
+                events.splice(index, 1);
+                localStorage.setItem('familyTickerEvents', JSON.stringify(events));
+                currentTickerIndex = 0;
+                updateTickerDisplay();
+                startTickerRotation();
+                renderAdminManageList();
+            }
+        }
+
+        function renderAdminManageList() {
+            const listContainer = document.getElementById('admin-manage-list');
+            if (!listContainer) return;
+
+            let events = getStoredEvents();
+            if (events.length === 0) {
+                listContainer.innerHTML = '<p style="color: #94a3b8; font-style: italic; font-size: 14px; text-align: center; margin: 0;">אין מבזקים פעילים כרגע.</p>';
+                return;
+            }
+
+            let html = '';
+            events.forEach((ev, idx) => {
+                html += `
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 10px 14px; border-radius: 8px; margin-bottom: 8px; border: 1px solid rgba(212,175,55,0.1);">
+                        <div>
+                            <strong style="color: #f3e5ab; font-size: 15px;">${ev.title}</strong>
+                            <div style="color: #cbd5e1; font-size: 13px; max-width: 450px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${ev.desc}</div>
+                        </div>
+                        <button onclick="deleteTickerEvent(${idx})" style="background: rgba(248,113,113,0.15); border: 1px solid #f87171; color: #f87171; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 13px; transition: background 0.3s;" onmouseover="this.style.background='rgba(248,113,113,0.3)'" onmouseout="this.style.background='rgba(248,113,113,0.15)'">
+                            <i class="fa-solid fa-trash-can" style="margin-left: 4px;"></i> הסר
+                        </button>
+                    </div>
+                `;
+            });
+            listContainer.innerHTML = html;
+        }
+
+        function updateTickerDisplay() {
+            const container = document.getElementById('live-events-container');
+            if (!container) return;
+            
+            let events = getStoredEvents();
+
+            if (events.length === 0) {
+                container.innerHTML = '<p style="color: #94a3b8; text-align: center; font-style: italic; font-size: 14px; margin: 0;">אין שמחות להצגה כרגע. הוסף שמחה חדשה!</p>';
+                return;
+            }
+
+            if (currentTickerIndex >= events.length) {
+                currentTickerIndex = 0;
+            }
+
+            const currentEvent = events[currentTickerIndex];
+            
+            container.style.opacity = '0';
+            setTimeout(() => {
+                container.innerHTML = `
+                    <div style="background: rgba(212,175,55,0.12); border: 1.5px solid #d4af37; padding: 14px 16px; border-radius: 14px; width: 100%; box-sizing: border-box; text-align: center; box-shadow: 0 4px 15px rgba(212,175,55,0.15);">
+                        <h4 style="color: #f3e5ab; margin: 0 0 6px 0; font-size: 17px; font-weight: 700;">✨ ${currentEvent.title}</h4>
+                        <p style="color: #e2e8f0; margin: 0; font-size: 14px; line-height: 1.5;">${currentEvent.desc}</p>
+                        ${events.length > 1 ? `<div style="font-size: 10px; color: #a0aec0; margin-top: 8px;">מבזק ${currentTickerIndex + 1} מתוך ${events.length}</div>` : ''}
+                    </div>
+                `;
+                container.style.opacity = '1';
+            }, 200);
+        }
+
+        function startTickerRotation() {
+            if (tickerInterval) clearInterval(tickerInterval);
+            let events = getStoredEvents();
+            if (events.length > 1) {
+                tickerInterval = setInterval(() => {
+                    let freshEvents = getStoredEvents();
+                    if (freshEvents.length > 1) {
+                        currentTickerIndex = (currentTickerIndex + 1) % freshEvents.length;
+                        updateTickerDisplay();
+                    }
+                }, 5000);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+/* עיצוב צבעוני, מודרני ומטורף */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #2b2d42;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* כותרת עליונה עם צבעים זורחים */
+header {
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+    box-shadow: 0 10px 30px rgba(255, 65, 108, 0.3);
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+header h1 {
+    margin: 0 0 10px 0;
+    font-size: 3rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+header p {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 300;
+}
+
+/* אזורים באתר */
+section {
+    max-width: 800px;
+    margin: 40px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+section:hover {
+    transform: translateY(-5px);
+}
+
+h2 {
+    color: #ff416c;
+    border-bottom: 3px solid #ff4b2b;
+    padding-bottom: 10px;
+    font-size: 2rem;
+}
+
+/* קופסאות השירותים בעיצוב צבעוני */
+.service-box {
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    border-right: 6px solid #ff416c;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.service-box:hover {
+    border-right-color: #ff4b2b;
+    transform: scale(1.02);
+}
+
+.service-box h3 {
+    margin: 0 0 8px 0;
+    color: #2b2d42;
+    font-size: 1.4rem;
+}
+
+/* תגובות לקוחות */
+.testimonial-box {
+    background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+    border-left: 6px solid #6c5ce7;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    color: #2d3436;
+}
+
+.testimonial-box p {
+    margin: 0 0 10px 0;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.testimonial-box cite {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    color: #2d3436;
+}
+
+/* טופס יצירת קשר */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #2b2d42;
+}
+
+input, textarea {
+    padding: 12px;
+    margin-top: 5px;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #ff416c;
+}
+
+button {
+    margin-top: 25px;
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 65, 108, 0.6);
+}
