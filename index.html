@@ -430,10 +430,48 @@
 
     <!-- סקריפטים מרכזיים -->
     <script>
-        const webAppUrl = "https://script.google.com/macros/s/AKfycbxmgiaqLaX7TCRCuq0O_Ew3HCmk6xJn_tuM83E8Qwxbs-cnB4cV2rh63Fe6xgFKog6V/exec";
+        const webAppUrl = "https://script.google.com/macros/s/AKfycbyIj0AyqIjo9rA-uKJxBqbRkIr-xxg5lcIkqy1SoZUEUft9FBXTR-QuLKa4BW_C_SLS/exec";
         let globalEvents = [];
         let currentTickerIndex = 0;
         let tickerInterval = null;
+
+
+
+
+function loadPersonalData() {
+    const emailInput = document.getElementById('user-email-input').value.trim();
+    if (!emailInput) {
+        alert("נا להזין כתובת מייל");
+        return;
+    }
+
+    fetch(webAppUrl + "?action=personal&user=" + encodeURIComponent(emailInput))
+        .then(response => response.json())
+        .then(data => {
+            const resultArea = document.getElementById('personal-result-area');
+            const nameDisplay = document.getElementById('personal-name-display');
+            const amountDisplay = document.getElementById('personal-amount-display');
+
+            if (data.success) {
+                resultArea.style.display = 'block';
+                nameDisplay.innerText = "שלום, " + data.name;
+                amountDisplay.innerText = "התרומה שלך עד עתה: ₪" + Number(data.amount || 0).toLocaleString();
+            } else {
+                resultArea.style.display = 'block';
+                nameDisplay.innerText = "שגיאה";
+                amountDisplay.innerText = data.message;
+            }
+        })
+        .catch(err => {
+            console.error("שגיאה בטעינת הנתונים האישיים:", err);
+            alert("אירעה שגיאה בתקשורת מול השרת");
+        });
+}
+
+
+
+
+
 
         // פונקציית סינון (Escape) למניעת XSS והזרקת קוד
         function escapeHtml(text) {
@@ -678,5 +716,43 @@
     <h4 style="color: var(--gold); margin-bottom: 15px;">ניהול תמונות קיימות:</h4>
     <div id="admin-photos-list" style="background: rgba(10, 15, 29, 0.8); padding: 15px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.2); max-height: 250px; overflow-y: auto;">
         <!-- רשימת ניהול התמונות תטען אוטומטית -->
+    </div>
+</div>
+
+
+
+
+
+<div style="margin: 20px auto; padding: 20px; border: 1.5px solid #d4af37; border-radius: 12px; background: #0f172a; color: #fff; max-width: 400px; text-align: center;">
+    <h3 style="color: #f3e5ab; margin-top: 0;">האזור האישי</h3>
+    
+    <!-- תיבת מייל משותפת אחת לכל הפעולות -->
+    <input type="text" id="user-email-input" placeholder="הכנס כתובת מייל..." style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: #fff; box-sizing: border-box;"><br>
+    
+    <!-- עבור כניסה רגילה -->
+    <input type="password" id="user-pass-input" placeholder="הכנס סיסמה קיימת..." style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: #fff; box-sizing: border-box;"><br>
+    <button onclick="loadPersonalData()" style="width: 100%; padding: 10px; background: #d4af37; color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 15px;">הצג את הנתונים שלי</button>
+    
+    <hr style="border-color: #334155; margin: 15px 0;">
+    
+    <!-- עבור הגדרת סיסמה בפעם הראשונה -->
+    <input type="password" id="new-pass-input" placeholder="בחר סיסמה חדשה (לפעם הראשונה)..." style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: #fff; box-sizing: border-box;"><br>
+    <button onclick="setPassword()" style="width: 100%; padding: 10px; background: #22c55e; color: #fff; font-weight: bold; border: none; border-radius: 8px; cursor: pointer;">שמור סיסמה חדשה</button>
+</div>
+
+<div id="display-area" style="margin-top: 15px; font-size: 18px; font-weight: bold; color: #f3e5ab; text-align: center;"></div>
+
+
+
+<!-- אזור צפייה בנתונים אישיים לפי מייל -->
+<div id="personal-dashboard" style="background: linear-gradient(145deg, #0a0f1d, #172033); color: #ffffff; padding: 25px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); max-width: 440px; margin: 20px auto; border: 1.5px solid #d4af37; text-align: center;">
+    <h3 style="color: #f3e5ab; margin-top: 0; font-size: 20px;">התאמה אישית - הנתונים שלי</h3>
+    <p style="color: #cbd5e1; font-size: 14px; margin-bottom: 15px;">הכנס את כתובת המייל שלך כדי לצפות בנתונים האישיים שלך:</p>
+    <input type="text" id="user-email-input" placeholder="הכנס כתובת מייל..." style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #d4af37; background: #0f172a; color: #fff; box-sizing: border-box; font-family: inherit;">
+    <button onclick="loadPersonalData()" style="width: 100%; background: #d4af37; color: #0f172a; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 15px;">הצג את הנתונים שלי</button>
+    
+    <div id="personal-result-area" style="margin-top: 15px; display: none; padding: 12px; background: rgba(212,175,55,0.1); border-radius: 10px; border: 1px solid rgba(212,175,55,0.3);">
+        <p style="margin: 5px 0; color: #f3e5ab; font-weight: bold;" id="personal-name-display"></p>
+        <p style="margin: 5px 0; color: #93c5fd; font-size: 18px;" id="personal-amount-display"></p>
     </div>
 </div>
