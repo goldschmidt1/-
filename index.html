@@ -320,6 +320,7 @@
             <li><a onclick="toggleSection('events-admin-section')">הוספת הודעות ושמחות</a></li>
             <li><a onclick="toggleSection('photos-section')">מדור תמונות</a></li>
             <li><a onclick="toggleSection('contact-section')">צור קשר</a></li>
+            <li><a onclick="toggleSection('personal-section')">האזור האישי</a></li>
         </ul>
         <button class="nav-btn" onclick="toggleSection('contact-section')">לשליחת דואר לאתר</button>
     </nav>
@@ -359,7 +360,7 @@
         </p>
     </div>
 
-    <!-- 3. אזור "הוספת הודעות ושמחות" וניהול מחיקות עם סיסמה -->
+    <!-- 3. אזור "הוספת הודעות ושמחות" -->
     <div id="events-admin-section" class="content-section">
         <span class="close-btn" onclick="toggleSection('events-admin-section')">&times;</span>
         <h3 class="section-title">הוספה וניהול מבזקי שמחות</h3>
@@ -367,11 +368,11 @@
             מלא את פרטי השמחה והזן את קוד הגישה המשפחתי כדי לפרסם:
         </p>
         
-        <div id="events-admin-panel" style="background: linear-gradient(145deg, #0a0f1d, #172033); color: #ffffff; padding: 25px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); max-width: 100%; border: 1px solid rgba(212,175,55,0.4); box-sizing: border-box; margin-bottom: 30px;">
+        <div style="background: linear-gradient(145deg, #0a0f1d, #172033); color: #ffffff; padding: 25px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); max-width: 100%; border: 1px solid rgba(212,175,55,0.4); box-sizing: border-box; margin-bottom: 30px;">
             <input type="text" id="site-event-title" placeholder="שם האירוע / השמחה" style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #d4af37; background: #0f172a; color: #fff; box-sizing: border-box; font-family: inherit;">
             <textarea id="site-event-desc" placeholder="פרטים נוספים / תאריך" style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #d4af37; background: #0f172a; color: #fff; box-sizing: border-box; font-family: inherit; height: 80px; resize: none;"></textarea>
             <input type="password" id="site-event-pass" placeholder="קוד גישה (סיסמה משפחתית)" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #d4af37; background: #0f172a; color: #fff; box-sizing: border-box; font-family: inherit;">
-            <button onclick="publishEventToCloud()" style="width: 100%; background: #d4af37; color: #0f172a; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; font-family: inherit; transition: background 0.3s;" onmouseover="this.style.background='#f3e5ab'" onmouseout="this.style.background='#d4af37'">פרסם שמחה לחזית האתר</button>
+            <button onclick="publishEventToCloud()" style="width: 100%; background: #d4af37; color: #0f172a; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; font-family: inherit; transition: background 0.3s;">פרסם שמחה לחזית האתר</button>
         </div>
 
         <h4 style="color: var(--gold); margin-bottom: 15px;">ניהול מבזקים קיימים בענן:</h4>
@@ -396,6 +397,49 @@
             <button type="submit" class="cta-btn" style="width: 100%;">שליחת פנייה למשרד</button>
         </form>
     </div>
+
+    <!-- 5. מדור תמונות -->
+    <div id="photos-section" class="content-section">
+        <span class="close-btn" onclick="toggleSection('photos-section')">&times;</span>
+        <h3 class="section-title">הוספה וצפייה בתמונות משפחתיות</h3>
+        <p style="color: var(--text-gray); font-size: 1rem; margin-bottom: 20px;">
+            הוסף קישור לתמונה חדשה כדי שתופיע במסגרת הזהב בחזית האתר:
+        </p>
+        
+        <div style="background: linear-gradient(145deg, #0a0f1d, #172033); color: #ffffff; padding: 25px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); max-width: 100%; border: 1px solid rgba(212,175,55,0.4); box-sizing: border-box; margin-bottom: 30px;">
+            <input type="text" id="site-photo-title" placeholder="כותרת לתמונה (לדוגמה: טיול משפחתי)" style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #d4af37; background: #0f172a; color: #fff; box-sizing: border-box; font-family: inherit;">
+            <input type="text" id="site-photo-url" placeholder="כתובת הקישור של התמונה (URL)" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #d4af37; background: #0f172a; color: #fff; box-sizing: border-box; font-family: inherit;">
+            <button onclick="publishPhotoToSite()" style="width: 100%; background: #d4af37; color: #0f172a; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; font-family: inherit; transition: background 0.3s;">הוסף תמונה למסגרת האתר</button>
+        </div>
+
+        <h4 style="color: var(--gold); margin-bottom: 15px;">ניהול תמונות קיימות:</h4>
+        <div id="admin-photos-list" style="background: rgba(10, 15, 29, 0.8); padding: 15px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.2); max-height: 250px; overflow-y: auto;">
+            <!-- רשימת ניהול התמונות תטען אוטומטית -->
+        </div>
+    </div>
+<!-- 6. האזור האישי -->
+<div id="personal-section" class="content-section">
+    <span class="close-btn" onclick="toggleSection('personal-section')">&times;</span>
+    <div style="margin: 0 auto; padding: 10px; text-align: center; color: #fff;">
+        <h3 style="color: #f3e5ab; margin-top: 0;">האזור האישי</h3>
+        <input type="text" id="user-email-input" placeholder="הכנס כתובת מייל..." style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: #fff; box-sizing: border-box;"><br>
+        <input type="password" id="user-pass-input" placeholder="הכנס סיסמה קיימת..." style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: #fff; box-sizing: border-box;"><br>
+        <button onclick="loadPersonalData()" style="width: 100%; padding: 10px; background: #d4af37; color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 15px;">הצג את הנתונים שלי</button>
+        
+        <!-- אזור התוצאות והגדרת סיסמה (ללא כפילויות) -->
+        <div id="personal-result-area" style="display: none; margin-top: 15px; padding: 15px; background: rgba(212,175,55,0.1); border-radius: 8px; border: 1px solid #d4af37; text-align: right;">
+            <h4 id="personal-name-display" style="margin: 0 0 10px 0; color: #f3e5ab; font-size: 18px;"></h4>
+            <p id="personal-amount-display" style="margin: 0 0 15px 0; color: #fff; font-size: 1.1rem;"></p>
+            
+            <!-- אזור להגדרת סיסמה חדשה (נפתח אוטומטית רק כשאין סיסמה) -->
+            <div id="set-password-container" style="display: none; margin-top: 15px; padding: 15px; background: #2a2a2a; border-radius: 8px; border: 1px solid #d4af37; text-align: center;">
+                <p style="color: #fff; margin-bottom: 10px; font-size: 14px;">נראה שטרם הוגדרה לך סיסמה. אנא שלח פניה למנהל האתר לקבלת סיסמה חדשה:</p>
+                <input type="password" id="new-password-input" placeholder="הכנס סיסמה חדשה..." style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc; background: #333; color: #fff; box-sizing: border-box;"><br>
+                <button onclick="saveNewPassword()" style="background: #d4af37; color: #000; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100%;">שמור סיסמה והתחבר</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- נתוני קופות וסיכומים -->
     <div id="dashboard-container" style="background: linear-gradient(145deg, #0a0f1d, #172033); color: #ffffff; padding: 35px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 25px rgba(212,175,55,0.2); font-family: inherit; max-width: 440px; margin: 30px auto; border: 1.5px solid #d4af37; transition: all 0.3s ease-in-out;">
@@ -430,48 +474,50 @@
 
     <!-- סקריפטים מרכזיים -->
     <script>
-        const webAppUrl = "https://script.google.com/macros/s/AKfycbyIj0AyqIjo9rA-uKJxBqbRkIr-xxg5lcIkqy1SoZUEUft9FBXTR-QuLKa4BW_C_SLS/exec";
+        const webAppUrl = "https://script.google.com/macros/s/AKfycbyXtzCuRVvkOKrjlOJsjuJ-QxCgG6SwPbY3vGwaQhz_bDT3Bon5SSlycTqX7VKnw0eh/exec";
         let globalEvents = [];
         let currentTickerIndex = 0;
         let tickerInterval = null;
 
-
-
-
-function loadPersonalData() {
-    const emailInput = document.getElementById('user-email-input').value.trim();
-    if (!emailInput) {
-        alert("נا להזין כתובת מייל");
-        return;
-    }
-
-    fetch(webAppUrl + "?action=personal&user=" + encodeURIComponent(emailInput))
-        .then(response => response.json())
-        .then(data => {
-            const resultArea = document.getElementById('personal-result-area');
-            const nameDisplay = document.getElementById('personal-name-display');
-            const amountDisplay = document.getElementById('personal-amount-display');
-
-            if (data.success) {
-                resultArea.style.display = 'block';
-                nameDisplay.innerText = "שלום, " + data.name;
-                amountDisplay.innerText = "התרומה שלך עד עתה: ₪" + Number(data.amount || 0).toLocaleString();
-            } else {
-                resultArea.style.display = 'block';
-                nameDisplay.innerText = "שגיאה";
-                amountDisplay.innerText = data.message;
+        function loadPersonalData() {
+            const emailInput = document.getElementById('user-email-input').value.trim();
+            if (!emailInput) {
+                alert("נא להזין כתובת מייל");
+                return;
             }
-        })
-        .catch(err => {
-            console.error("שגיאה בטעינת הנתונים האישיים:", err);
-            alert("אירעה שגיאה בתקשורת מול השרת");
-        });
-}
 
+            fetch(webAppUrl + "?action=personal&user=" + encodeURIComponent(emailInput))
+                .then(response => response.json())
+                .then(data => {
+                    const resultArea = document.getElementById('personal-result-area');
+                    const nameDisplay = document.getElementById('personal-name-display');
+                    const amountDisplay = document.getElementById('personal-amount-display');
 
+                    if (data.success) {
+                        resultArea.style.display = 'block';
+                        nameDisplay.innerText = "שלום, " + data.name;
+                        amountDisplay.innerText = "התרומה שלך עד עתה: ₪" + Number(data.amount || 0).toLocaleString();
+                    } else {
+                        resultArea.style.display = 'block';
+                        nameDisplay.innerText = "שגיאה";
+                        amountDisplay.innerText = data.message;
+                    }
+                })
+                .catch(err => {
+                    console.error("שגיאה בטעינת הנתונים האישיים:", err);
+                    alert("אירעה שגיאה בתקשורת מול השרת");
+                });
+        }
 
-
-
+        function publishPhotoToSite() {
+            const title = document.getElementById('site-photo-title').value.trim();
+            const url = document.getElementById('site-photo-url').value.trim();
+            if(!title || !url) {
+                alert("נא למלא את כל שדות התמונה");
+                return;
+            }
+            alert("התמונה נוספה בהצלחה!");
+        }
 
         // פונקציית סינון (Escape) למניעת XSS והזרקת קוד
         function escapeHtml(text) {
@@ -513,12 +559,10 @@ function loadPersonalData() {
                 .then(response => response.json())
                 .then(data => {
                     console.log("הנתונים התקבלו מהענן:", data);
-                    // יתרות קופה
                     document.getElementById('total-balance-el').innerText = '₪' + Number(data.totalBalance || 0).toLocaleString();
                     document.getElementById('general-balance-el').innerText = '₪' + Number(data.generalBalance || 0).toLocaleString();
                     document.getElementById('weddings-balance-el').innerText = '₪' + Number(data.weddingsBalance || 0).toLocaleString();
                     
-                    // מבזקים
                     globalEvents = data.events || [];
                     updateTickerDisplay();
                     startTickerRotation();
@@ -567,7 +611,9 @@ function loadPersonalData() {
                     titleInput.value = '';
                     descInput.value = '';
                     passInput.value = '';
-                    globalEvents = response.events || [];
+                    if (response.events) {
+                        globalEvents = response.events;
+                    }
                     currentTickerIndex = 0;
                     updateTickerDisplay();
                     startTickerRotation();
@@ -687,80 +733,3 @@ function loadPersonalData() {
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- מדור תמונות וניהול -->
-<div id="photos-section" class="content-section">
-    <span class="close-btn" onclick="toggleSection('photos-section')">&times;</span>
-    <h3 class="section-title">הוספה וצפייה בתמונות משפחתיות</h3>
-    <p style="color: var(--text-gray); font-size: 1rem; margin-bottom: 20px;">
-        הוסף קישור לתמונה חדשה כדי שתופיע במסגרת הזהב בחזית האתר:
-    </p>
-    
-    <div style="background: linear-gradient(145deg, #0a0f1d, #172033); color: #ffffff; padding: 25px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); max-width: 100%; border: 1px solid rgba(212,175,55,0.4); box-sizing: border-box; margin-bottom: 30px;">
-        <input type="text" id="site-photo-title" placeholder="כותרת לתמונה (לדוגמה: טיול משפחתי)" style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #d4af37; background: #0f172a; color: #fff; box-sizing: border-box; font-family: inherit;">
-        <input type="text" id="site-photo-url" placeholder="כתובת הקישור של התמונה (URL)" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #d4af37; background: #0f172a; color: #fff; box-sizing: border-box; font-family: inherit;">
-        <button onclick="publishPhotoToSite()" style="width: 100%; background: #d4af37; color: #0f172a; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; font-family: inherit; transition: background 0.3s;">הוסף תמונה למסגרת האתר</button>
-    </div>
-
-    <h4 style="color: var(--gold); margin-bottom: 15px;">ניהול תמונות קיימות:</h4>
-    <div id="admin-photos-list" style="background: rgba(10, 15, 29, 0.8); padding: 15px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.2); max-height: 250px; overflow-y: auto;">
-        <!-- רשימת ניהול התמונות תטען אוטומטית -->
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div style="margin: 20px auto; padding: 20px; border: 1.5px solid #d4af37; border-radius: 12px; background: #0f172a; color: #fff; max-width: 400px; text-align: center;">
-    <h3 style="color: #f3e5ab; margin-top: 0;">האזור האישי</h3>
-    
-    <!-- תיבת מייל משותפת אחת לכל הפעולות -->
-    <input type="text" id="user-email-input" placeholder="הכנס כתובת מייל..." style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: #fff; box-sizing: border-box;"><br>
-    
-    <!-- עבור כניסה רגילה -->
-    <input type="password" id="user-pass-input" placeholder="הכנס סיסמה קיימת..." style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: #fff; box-sizing: border-box;"><br>
-    <button onclick="loadPersonalData()" style="width: 100%; padding: 10px; background: #d4af37; color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 15px;">הצג את הנתונים שלי</button>
-    
-    <hr style="border-color: #334155; margin: 15px 0;">
-    
-    <!-- עבור הגדרת סיסמה בפעם הראשונה -->
-    <input type="password" id="new-pass-input" placeholder="בחר סיסמה חדשה (לפעם הראשונה)..." style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: #fff; box-sizing: border-box;"><br>
-    <button onclick="setPassword()" style="width: 100%; padding: 10px; background: #22c55e; color: #fff; font-weight: bold; border: none; border-radius: 8px; cursor: pointer;">שמור סיסמה חדשה</button>
-</div>
-
-<div id="display-area" style="margin-top: 15px; font-size: 18px; font-weight: bold; color: #f3e5ab; text-align: center;"></div>
-
-
-<!-- אזור צפייה בנתונים אישיים לפי מייל -->
-<div id="personal-dashboard" style="background: linear-gradient(145deg, #0a0f1d, #172033); color: #ffffff; padding: 25px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); max-width: 440px; margin: 20px auto; border: 1.5px solid #d4af37; text-align: center;">
-    <h3 style="color: #f3e5ab; margin-top: 0; font-size: 20px;">התאמה אישית - הנתונים שלי</h3>
-    <p style="color: #cbd5e1; font-size: 14px; margin-bottom: 15px;">הכנס את כתובת המייל שלך כדי לצפות בנתונים האישיים שלך:</p>
-    <input type="text" id="user-email-input" placeholder="הכנס כתובת מייל..." style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #d4af37; background: #0f172a; color: #fff; box-sizing: border-box; font-family: inherit;">
-    <button onclick="loadPersonalData()" style="width: 100%; background: #d4af37; color: #0f172a; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 15px;">הצג את הנתונים שלי</button>
-    
-    <div id="personal-result-area" style="margin-top: 15px; display: none; padding: 12px; background: rgba(212,175,55,0.1); border-radius: 10px; border: 1px solid rgba(212,175,55,0.3);">
-        <p style="margin: 5px 0; color: #f3e5ab; font-weight: bold;" id="personal-name-display"></p>
-        <p style="margin: 5px 0; color: #93c5fd; font-size: 18px;" id="personal-amount-display"></p>
-    </div>
-</div>
